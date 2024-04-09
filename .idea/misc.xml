@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="EnvDesanges" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="DesangesEnv" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="EnvDesanges" project-jdk-type="Python SDK" />
 </project>

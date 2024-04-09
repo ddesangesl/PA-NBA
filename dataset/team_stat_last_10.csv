@@ -1,4 +1,4 @@
-gameId,teamId,GAME_DATE,DUEL,WL,NB_WIN_L10,PCT_TIR_REUSSI_L10,PCT_3PTS_L10,PCT_LANCER_FRANC_L10,estimatedOffensiveRating_L10,offensiveRating_L10,estimatedDefensiveRating_L10,defensiveRating_L10,estimatedNetRating_L10,netRating_L10,assistPercentage_L10,assistToTurnover_L10,assistRatio_L10,estimatedTeamTurnoverPercentage_L10,turnoverRatio_L10,effectiveFieldGoalPercentage_L10,trueShootingPercentage_L10,estimatedPace_L10,pace_L10,pacePer40_L10,PIE_L10
+gameId,teamId,GAME_DATE,DUEL,WL,NB_WIN,PCT_TIR_REUSSI_L10,PCT_3PTS_L10,PCT_LANCER_FRANC_L10,estimatedOffensiveRating_L10,offensiveRating_L10,estimatedDefensiveRating_L10,defensiveRating_L10,estimatedNetRating_L10,netRating_L10,assistPercentage_L10,assistToTurnover_L10,assistRatio_L10,estimatedTeamTurnoverPercentage_L10,turnoverRatio_L10,effectiveFieldGoalPercentage_L10,trueShootingPercentage_L10,estimatedPace_L10,pace_L10,pacePer40_L10,PIE_L10
 21300001,1610612754,2013-10-29,IND vs. ORL,W,0,,,,,,,,,,,,,,,,,,,,
 21300001,1610612753,2013-10-29,ORL @ IND,L,0,,,,,,,,,,,,,,,,,,,,
 21300002,1610612748,2013-10-29,MIA vs. CHI,W,0,,,,,,,,,,,,,,,,,,,,
