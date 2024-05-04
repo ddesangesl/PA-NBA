@@ -87,6 +87,7 @@ def get_df_team_stat(dict_team):
 def get_df_team_adv_stats(list_game_id):
     df_team_adv_stat = pd.DataFrame()
     i = 0
+    print(len(list_game_id))
     while i < len(list_game_id):
         avance = float("{:.2f}".format(i + 1 / len(list_game_id) * 100))
         print("Extraction :", avance, "%")
@@ -94,7 +95,7 @@ def get_df_team_adv_stats(list_game_id):
         df_game_adv_stat = adv_stats_game.get_data_frames()[1]
         df_team_adv_stat = pd.concat([df_team_adv_stat, df_game_adv_stat], ignore_index=True)
         i += 1
-    df_team_adv_stat.to_csv("11701 - 13000.csv", index=False)
+    df_team_adv_stat.to_csv("../dataset/team_adv_stat_temp.csv", index=False)
 
 
 #df_player_stat = get_df_player_stat(dict_player)
@@ -103,8 +104,22 @@ def get_df_team_adv_stats(list_game_id):
 
 #df_team_stat = get_df_team_stat(dict_team)
 # Enregistrement des données dans le CSV
-#df_team_stat.to_csv("team_stat_celtic.csv", index=False)
+#df_team_stat.to_csv("../dataset/team_stat.csv", index=False)
 
+# Charger les fichiers CSV en dataframes
+team_stat_df = pd.read_csv("../dataset/team_stat.csv", dtype={"Game_ID" : str})
+team_adv_stat_df = pd.read_csv("../dataset/team_adv_stats.csv", dtype={"gameId" : str})
+
+# Créer une liste de tous les game_id dans les deux dataframes
+all_game_ids = set(team_stat_df['Game_ID']).union(set(team_adv_stat_df['gameId']))
+
+# Créer une liste des game_id qui ne sont pas dans les deux dataframes
+game_ids_not_in_both = []
+for game_id in all_game_ids:
+    if game_id not in team_stat_df['Game_ID'].values or game_id not in team_adv_stat_df['gameId'].values:
+        game_ids_not_in_both.append(game_id)
+
+#  print([game_ids_not_in_both])
 #with open('list_game_id.txt', 'r') as f:
     # Lire chaque ligne du fichier et stocker dans une liste
 #    liste = f.readlines()
@@ -112,6 +127,6 @@ def get_df_team_adv_stats(list_game_id):
 # Supprimer les caractères de saut de ligne ("\n") de chaque élément de la liste
 #list_game_id = [element.strip() for element in liste]
 
-#df_team_adv_stats_team = get_df_team_adv_stats(list_game_id)
-#df_team_adv_stats_team.to_csv("team_adv_stat.csv", index=False)
+df_team_adv_stats_team = get_df_team_adv_stats(game_ids_not_in_both)
+#df_team_adv_stats_team.to_csv("../dataset/team_adv_stat_temp.csv", index=False)
 
