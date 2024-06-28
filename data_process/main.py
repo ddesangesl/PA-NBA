@@ -4,57 +4,6 @@ from nba_api.stats.endpoints import boxscoreadvancedv3
 import pandas as pd
 
 
-dict_player = {
-    '203999' : "Jokic",
-    '1966' : "Lebron",
-    '3975' : "Curry",
-    '201142' : "KD",
-    '203507' : "Giannis",
-    '203954' : "Embiid",
-    '3992' : "Harden",
-    '201566' : "Westbrook",
-    '202331' : "PG",
-    '1626164' : "Booker",
-    '1626157' : "KAT",
-    '203897' : "Lavine",
-    '202691' : "Klay Thompson",
-    "1628369" : "Jayson Tatum",
-    "202710" : "Butler"
-}
-
-dict_team = {
-    '1610612747' : "Lakers",
-    '1610612744' : "Warriors",
-    '1610612738' : "Celtics",
-    '1610612739' : "Cavaliers",
-    '1610612749' : "Bucks",
-    '1610612752' : "Knicks",
-    '1610612753' : "Magic",
-    '1610612748' : "Heat",
-    '1610612755' : "76ers",
-    '1610612754' : "Pacers",
-    '1610612741' : "Bulls",
-    '1610612737' : "Hawks",
-    '1610612751' : "Nets",
-    '1610612761' : "Raptors",
-    '1610612766' : "Hornets",
-    '1610612765' : "Pistons",
-    '1610612764' : "Wizards",
-    '1610612760' : "Thunder",
-    '1610612750' : "Wolves",
-    '1610612743' : "Nuggets",
-    '1610612746' : "Clippers",
-    '1610612740' : "Pelicans",
-    '1610612756' : "Suns",
-    '1610612758' : "kings",
-    '1610612742' : "Mavs",
-    '1610612745' : "Rockets",
-    '1610612762' : "Jazz",
-    '1610612763' : "Grizzlies",
-    '1610612757' : "Blazers",
-    '1610612759' : "Spurs",
-}
-
 # Extrait les stats des équipes et renvoie la dataframe des données
 def get_df_player_stat(dict_player):
     # Définition de la grande dataframe qui sera retourner
@@ -62,7 +11,7 @@ def get_df_player_stat(dict_player):
     for player_id in dict_player: # Pour chaque joueurs
         for season in range(14, 25): # De la saison 2013-14 à la saison 2023-24
             # Extrait les stats de l'équipe sur une année
-            stats_per_game = playergamelog.PlayerGameLog(player_id=player_id, season="20"+str(season - 1)+'-'+str(season))
+            stats_per_game = playergamelog.PlayerGameLog(player_id=player_id, season="200"+str(season - 1)+'-'+"0"+str(season))
             # Transformation des données en dataframe
             df_player_stat_temp = stats_per_game.get_data_frames()[0]
             # Ajout des données dans la grande dataframe
@@ -74,7 +23,7 @@ def get_df_team_stat(dict_team):
     # Définition de la grande dataframe qui sera retourné
     df_team_stat = pd.DataFrame()
     for team_id in dict_team: # Pour chaque équipe
-        for season in range(14, 25): # De la saison 2013-14 à la saison 2023-24
+        for season in range(11, 14): # De la saison 2013-14 à la saison 2023-24
             # Extrait les stats de l'équipe sur une année
             stats_team_per_game = teamgamelog.TeamGameLog(team_id=team_id, season="20"+str(season - 1)+'-'+str(season))
             # Transformation des données en dataframe
@@ -89,13 +38,14 @@ def get_df_team_adv_stats(list_game_id):
     i = 0
     print(len(list_game_id))
     while i < len(list_game_id):
-        avance = float("{:.2f}".format(i + 1 / len(list_game_id) * 100))
+        avance = float("{:.2f}".format((i + 1) / len(list_game_id) * 100))
         print("Extraction :", avance, "%")
         adv_stats_game = boxscoreadvancedv3.BoxScoreAdvancedV3(list_game_id[i])
         df_game_adv_stat = adv_stats_game.get_data_frames()[1]
         df_team_adv_stat = pd.concat([df_team_adv_stat, df_game_adv_stat], ignore_index=True)
         i += 1
-    df_team_adv_stat.to_csv("../dataset/team_adv_stat_temp.csv", index=False)
+        df_team_adv_stat.to_csv("../dataset/team_adv_stat.csv", index=False)
+    #df_team_adv_stat.to_csv("../dataset/team_adv_stat_temp.csv", index=False)
 
 
 #df_player_stat = get_df_player_stat(dict_player)
@@ -104,7 +54,7 @@ def get_df_team_adv_stats(list_game_id):
 
 #df_team_stat = get_df_team_stat(dict_team)
 # Enregistrement des données dans le CSV
-#df_team_stat.to_csv("../dataset/team_stat.csv", index=False)
+#df_team_stat.to_csv("../dataset/team_stat_test.csv", index=False)
 
 # Charger les fichiers CSV en dataframes
 team_stat_df = pd.read_csv("../dataset/team_stat.csv", dtype={"Game_ID" : str})
@@ -118,6 +68,7 @@ game_ids_not_in_both = []
 for game_id in all_game_ids:
     if game_id not in team_stat_df['Game_ID'].values or game_id not in team_adv_stat_df['gameId'].values:
         game_ids_not_in_both.append(game_id)
+
 
 #  print([game_ids_not_in_both])
 #with open('list_game_id.txt', 'r') as f:
