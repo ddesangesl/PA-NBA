@@ -7,10 +7,10 @@ data = data.round(2)
 
 condition = (data['GAME_DATE'] > pd.to_datetime('2023-09-01')) & (data['GAME_DATE'] < pd.to_datetime('2024-09-01'))
 data_test = data[condition]
-data_test = data_test.drop(columns=['GAME_DATE','gameId', 'A_teamId', 'H_teamId', 'H_teamName', 'A_teamName', 'H_POINTS', 'A_POINTS', 'ELO_PROB'])
+data_test = data_test.drop(columns=['GAME_DATE','gameId', 'A_teamId', 'H_teamId', 'H_teamName', 'A_teamName', 'H_POINTS', 'A_POINTS', 'ELO_PROB','DIFF_W' ])
 condition = (data['GAME_DATE'] > pd.to_datetime('2022-09-01')) & (data['GAME_DATE'] < pd.to_datetime('2023-09-01'))
 data_train = data[condition]
-data_train = data_train.drop(columns=['GAME_DATE','gameId', 'A_teamId', 'H_teamId', 'H_teamName', 'A_teamName', 'H_POINTS', 'A_POINTS', 'ELO_PROB'])
+data_train = data_train.drop(columns=['GAME_DATE','gameId', 'A_teamId', 'H_teamId', 'H_teamName', 'A_teamName', 'H_POINTS', 'A_POINTS', 'ELO_PROB', 'DIFF_W'])
 
 X_train = data_train.drop(columns=['HOME_WON'])  # Fonctionnalités
 y_train = data_train['HOME_WON']  # Cible

@@ -24,7 +24,7 @@ X_test = scaler.transform(X_test)
 
 scoring = {'accuracy': make_scorer(accuracy_score), 'f1': make_scorer(f1_score)}
 
-knn = KNeighborsClassifier(n_neighbors=28, weights='distance')
+knn = KNeighborsClassifier(n_neighbors=28, weights='distance', metric='minkowski', p=2)
 
 knn.fit(X_train, y_train)
 y_pred = knn.predict(X_test)
