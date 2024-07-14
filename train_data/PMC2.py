@@ -3,25 +3,10 @@ import pandas as pd
 from tensorflow.keras import layers, models
 from sklearn.metrics import make_scorer, accuracy_score, f1_score
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from data_modele import get_data_for_training
 
-data = pd.read_csv('../dataset/final_dataset.csv', parse_dates=['GAME_DATE'], dtype={'gameId' : str, 'H_teamId' : str, 'A_teamId' : str,})
-data = data.round(2)
+X_train, X_test, y_train, y_test, data_test, scaler = get_data_for_training()
 
-condition = (data['GAME_DATE'] > pd.to_datetime('2023-09-01')) & (data['GAME_DATE'] < pd.to_datetime('2024-09-01'))
-data_test = data[condition]
-data_test = data_test.drop(columns=['GAME_DATE', 'gameId', 'A_teamId', 'H_teamId'])
-data_train = data[~condition]
-data_train = data_train.drop(columns=['GAME_DATE', 'gameId', 'A_teamId', 'H_teamId'])
-X_train = data_train.drop('HOME_WON', axis=1)  # Fonctionnalités
-y_train = data_train['HOME_WON']  # Cible
-
-X_test = data_test.drop('HOME_WON', axis=1)  # Fonctionnalités
-y_test = data_test['HOME_WON']
-
-scaler = MinMaxScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.fit_transform(X_test)
-# Définir les métriques de performance à calculer
 scoring = {'accuracy': make_scorer(accuracy_score), 'f1': make_scorer(f1_score)}
 
 # Création du modèle PMC

@@ -1,6 +1,6 @@
 import pandas as pd
 
-
+#Fonction qui fait la fusion du dataset des statistique classique et du dataset des statistique avancé
 def  merge_team_stats():
     print('merge_team_stats...')
     team_adv_stats = pd.read_csv('../dataset/team_adv_stats.csv', dtype={'teamId': str, 'gameId': str})
@@ -20,11 +20,9 @@ def  merge_team_stats():
     # Convertir la colonne 'GAME_DATE' en format de date
     merged_df['GAME_DATE'] = pd.to_datetime(merged_df['GAME_DATE'], format='%b %d, %Y')
 
-    # Trier le DataFrame en fonction de la colonne 'GAME_DATE'
+    # Trie le DataFrame en fonction de la date
     df_sorted = merged_df.sort_values(by='GAME_DATE')
 
-    df_sorted = df_sorted.loc[(df_sorted["GAME_DATE"] < pd.to_datetime('2020-05-01')) | (
-                df_sorted["GAME_DATE"] > pd.to_datetime('2021-09-01'))]
-    df_sorted.to_csv('dataset.csv', index=False)
+    # Supprime les données de la période COVID
+    df_sorted = df_sorted.loc[(df_sorted["GAME_DATE"] < pd.to_datetime('2020-05-01')) | (df_sorted["GAME_DATE"] > pd.to_datetime('2021-09-01'))]
     return df_sorted
-merge_team_stats()

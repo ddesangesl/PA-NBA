@@ -48,14 +48,6 @@ def get_df_team_adv_stats(list_game_id):
     #df_team_adv_stat.to_csv("../dataset/team_adv_stat_temp.csv", index=False)
 
 
-#df_player_stat = get_df_player_stat(dict_player)
-# Enregistrement des données dans le CSV
-#df_player_stat.to_csv("player_stat.csv", index=False)
-
-#df_team_stat = get_df_team_stat(dict_team)
-# Enregistrement des données dans le CSV
-#df_team_stat.to_csv("../dataset/team_stat_test.csv", index=False)
-
 # Charger les fichiers CSV en dataframes
 team_stat_df = pd.read_csv("../dataset/team_stat.csv", dtype={"Game_ID" : str})
 team_adv_stat_df = pd.read_csv("../dataset/team_adv_stats.csv", dtype={"gameId" : str})
@@ -70,14 +62,5 @@ for game_id in all_game_ids:
         game_ids_not_in_both.append(game_id)
 
 
-#  print([game_ids_not_in_both])
-#with open('list_game_id.txt', 'r') as f:
-    # Lire chaque ligne du fichier et stocker dans une liste
-#    liste = f.readlines()
-
-# Supprimer les caractères de saut de ligne ("\n") de chaque élément de la liste
-#list_game_id = [element.strip() for element in liste]
-
 df_team_adv_stats_team = get_df_team_adv_stats(game_ids_not_in_both)
-#df_team_adv_stats_team.to_csv("../dataset/team_adv_stat_temp.csv", index=False)
 

@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.metrics import make_scorer, accuracy_score, f1_score
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
-df = pd.read_csv('../dataset/final_dataset.csv', parse_dates=['GAME_DATE'], dtype={'gameId' : str, 'H_teamId' : str, 'A_teamId' : str,})
+df = pd.read_csv('../dataset/final_dataset.csv', parse_dates=['GAME_DATE'], dtype={'gameId' : str, 'H_teamId' : str, 'A_teamId' : str, })
 
 
 df = df.apply(pd.to_numeric, errors='coerce')

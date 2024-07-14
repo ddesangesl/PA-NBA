@@ -4,6 +4,8 @@ from flat_games_stats import flat_games_stats
 from add_elo_rates import add_elo_rates
 from diff_stats import diff_stats
 
+
+# Appel des différentes fonction afin préparer et transformer les données
 data = merge_team_stats()
 data = get_last_perf(data)
 data = flat_games_stats(data)
