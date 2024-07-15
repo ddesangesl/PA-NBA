@@ -7,7 +7,7 @@ X_train, X_test, y_train, y_test, data_test, scaler = get_data_for_training()
 
 scoring = {'accuracy': make_scorer(accuracy_score), 'f1': make_scorer(f1_score)}
 
-# Definition du modele et des ses hyperparametre
+# Definition du modele et de ses hyperparametre
 gb = GradientBoostingClassifier(n_estimators=26, loss='exponential', learning_rate=0.1)
 gb.fit(X_train, y_train)
 y_pred = gb.predict(X_test)

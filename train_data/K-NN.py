@@ -10,7 +10,7 @@ X_train, X_test, y_train, y_test, data_test, scaler = get_data_for_training()
 
 scoring = {'accuracy': make_scorer(accuracy_score), 'f1': make_scorer(f1_score)}
 
-knn = KNeighborsClassifier(n_neighbors=58)
+knn = KNeighborsClassifier(n_neighbors=32)
 
 knn.fit(X_train, y_train)
 y_pred = knn.predict(X_test)
